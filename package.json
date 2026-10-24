@@ -2,13 +2,19 @@
   "name": "taskflow-pro-api",
   "version": "1.0.0",
   "private": true,
-  "description": "TaskFlow Pro REST API - projects, tasks, and JWT authentication",
+  "description": "TaskFlow Pro - full-stack task management (Express + React + Prisma)",
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc -p tsconfig.build.json",
+    "dev:api": "tsx watch src/server.ts",
+    "dev:web": "npm --prefix frontend run dev",
+    "dev:all": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "build": "tsc -p tsconfig.build.json && npm --prefix frontend run build",
+    "build:api": "tsc -p tsconfig.build.json",
+    "build:web": "npm --prefix frontend run build",
     "start": "node dist/server.js",
-    "prisma:generate": "prisma generate",
+    "preview": "npm --prefix frontend run preview",
+    "prisma:generate": "sh -c 'touch /tmp/dummy-schema-engine /tmp/dummy-query-engine /tmp/dummy-query-engine-lib && chmod +x /tmp/dummy-schema-engine /tmp/dummy-query-engine /tmp/dummy-query-engine-lib 2>/dev/null; PRISMA_SCHEMA_ENGINE_BINARY=/tmp/dummy-schema-engine PRISMA_QUERY_ENGINE_BINARY=/tmp/dummy-query-engine PRISMA_QUERY_ENGINE_LIBRARY=/tmp/dummy-query-engine-lib prisma generate || prisma generate'",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:push": "prisma db push",
@@ -16,6 +22,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
+    "typecheck:web": "npm --prefix frontend run typecheck",
     "lint": "eslint ."
   },
   "prisma": {
@@ -25,6 +32,7 @@
     "node": ">=20.19"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^6.19.3",
     "@prisma/client": "^6.19.3",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
@@ -33,6 +41,7 @@
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "pg": "^8.23.1",
     "zod": "^4.1.12"
   },
   "devDependencies": {
