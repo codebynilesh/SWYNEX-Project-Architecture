@@ -1,0 +1,64 @@
+{
+  "name": "taskflow-pro-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TaskFlow Pro - full-stack task management (Express + React + Prisma)",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "dev:api": "tsx watch src/server.ts",
+    "dev:web": "npm --prefix frontend run dev",
+    "dev:all": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "build": "tsc -p tsconfig.build.json && npm --prefix frontend run build",
+    "build:api": "tsc -p tsconfig.build.json",
+    "build:web": "npm --prefix frontend run build",
+    "start": "node dist/server.js",
+    "preview": "npm --prefix frontend run preview",
+    "prisma:generate": "sh -c 'touch /tmp/dummy-schema-engine /tmp/dummy-query-engine /tmp/dummy-query-engine-lib && chmod +x /tmp/dummy-schema-engine /tmp/dummy-query-engine /tmp/dummy-query-engine-lib 2>/dev/null; PRISMA_SCHEMA_ENGINE_BINARY=/tmp/dummy-schema-engine PRISMA_QUERY_ENGINE_BINARY=/tmp/dummy-query-engine PRISMA_QUERY_ENGINE_LIBRARY=/tmp/dummy-query-engine-lib prisma generate || prisma generate'",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:push": "prisma db push",
+    "db:seed": "prisma db seed",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "typecheck:web": "npm --prefix frontend run typecheck",
+    "lint": "eslint ."
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^6.19.3",
+    "@prisma/client": "^6.19.3",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.23.1",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.11",
+    "@electric-sql/pglite-socket": "^0.2.14",
+    "@eslint/js": "^9.38.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.9.2",
+    "@types/supertest": "^6.0.3",
+    "eslint": "^9.38.0",
+    "prisma": "^6.19.3",
+    "supertest": "^7.1.4",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.2",
+    "vitest": "^3.2.4"
+  }
+}
