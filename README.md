@@ -1,4 +1,4 @@
-# SWYNEX — TaskFlow Pro
+# TaskFlow Pro
 
 **TaskFlow Pro** is a lightweight full-stack task management application for remote teams to organize projects, assign tasks, and track progress.
 
